@@ -14,6 +14,64 @@ require 'pry'
 # Player places bet and wins / loses (hint: rand)
 # Player's bankroll goes up and down with wins and losses
 
+class Casino
+	attr_accessor :player
+
+	def initialize
+		@player = Player.new
+	end
+
+	def pick_game
+		puts "What game would you like to play?"
+		puts "1: High/Low"
+		# 2: Slots
+		case gets.strip
+	    	when '1'
+	    		# plays high low
+	    		@high_low = HighLow.new
+	    		@high_low.deal_cards
+	    	# when '2'
+	    	# 	# new instance of slots
+	    	else
+	    		puts "Goodbye!"
+	    		exit
+    	end
+    end
+
+    def payout
+    	# binding.pry
+    	if @high_low.player_wins == true
+    		@player.bank_roll = @player.bank_roll + @high_low.wager
+    		puts "Your new bank roll is #{@player.bank_roll}."
+    	else 
+    		@player.bank_roll = @player.bank_roll - @high_low.wager
+    		puts "Your new bank roll is #{@player.bank_roll}."
+    	end
+    	#bank_roll == 0 ? exit : 
+    	if @player.bank_roll == 0 
+    		exit(0) 
+    	end
+
+	    	puts "Would you like to play again? (y/n)"
+			user_input = gets.strip.downcase
+		# TODO put this on one line
+		if user_input == 'y'
+			hit_the_tables
+		else
+		end
+    end
+
+    	
+    def hit_the_tables
+    	# play game
+    	pick_game
+    	# update bankroll, give option to play again
+    	payout
+    	# exit if bankroll is 0 or user types exit
+    end
+
+end
+
 
 class Player
 	attr_accessor :name, :bank_roll
@@ -37,17 +95,16 @@ end
 
 
 class HighLow
-	attr_accessor :wager
+	attr_accessor :wager, :player_wins
 
-	
 	def initialize
 		@wager = 10
 	end
 
- 	
  	def deal_cards
   	
-		cards = Mechanics::Deck.new.cards.shuffle
+		cards = Mechanics::Deck.new.cards
+		cards = cards.shuffle
 
 		# player card is dealt
 		player_card = cards.first
@@ -76,76 +133,7 @@ class HighLow
 			puts "push"	
 			# restarts game
 		end
-
-
-		# puts @wager
-		# puts @bank_roll
-
-		# add or subtract from bank roll 
 	end  
-end
-
-# test = HighLow.new(10)
-# puts test.deal_cards
-
-
-class Casino
-	attr_accessor :player
-
-	def initialize
-		@player = Player.new
-	end
-
-	def pick_game
-		puts "What game would you like to play?
-		1: High/Low"
-		# 2: Slots
-		case gets.strip
-	    	when '1'
-	    		# plays high low
-	    		@high_low = HighLow.new
-	    		@high_low.deal_cards
-	    	# when '2'
-	    	# 	# new instance of slots
-	    	else
-	    		puts "Goodbye!"
-	    		exit
-
-    	end
-    end
-
-    def payout
-    	# binding.pry
-    	if @player_wins == true
-    		@player.bank_roll = @player.bank_roll + @high_low.wager
-    		puts "Your new bank roll is #{@player.bank_roll}."
-    	else 
-    		@player.bank_roll = @player.bank_roll - @high_low.wager
-    		puts "Your new bank roll is #{@player.bank_roll}."
-    	end
-    	#bank_roll == 0 ? exit : 
-    	if @player.bank_roll == 0 
-    		exit(0) 
-    	end
-
-    	puts "Would you like to play again? (y/n)"
-		user_input = gets.strip.downcase
-		# TODO put this on one line
-		if user_input == 'y'
-			hit_the_tables
-		else
-		end
-    end
-
-    	
-    def hit_the_tables
-    	# play game
-    	pick_game
-    	# update bankroll, give option to play again
-    	payout
-    	# exit if bankroll is 0 or user types exit
-    end
-
 end
 
 Casino.new.hit_the_tables
