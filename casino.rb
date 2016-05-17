@@ -77,13 +77,15 @@ class Player
 
 	def initialize
 		@name = name
-		@bank_roll = 200
+		@bank_roll = bank_roll
 		intro
 	end
 
 	def intro
 		puts "Welcome to the casino. What's your name?"
 		@name = gets.strip
+		puts "How much is in your bank roll?"
+		@bank_roll = gets.strip.to_f
 		printf("Good luck %s, you have $%.2f to play with.\n", @name, @bank_roll)
 	end
 end
@@ -117,5 +119,4 @@ Casino.new.hit_the_tables
 
 
 # TO DO list
-# ask for bankroll, set user input equal to bankroll
 # dynamic wager (choose how much to bet, give option for all in)
