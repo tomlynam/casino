@@ -2,6 +2,7 @@
 Dir[File.dirname(__FILE__) + '/mechanics/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/games/*.rb'].each {|file| require file }
 require 'pry'
+require 'colorize'
 
 
 class Casino
@@ -95,10 +96,10 @@ class Cashier
   	def self.payout_high_low(high_low, player)
 		if high_low.player_wins == true 
 			player.bank_roll = player.bank_roll + high_low.wager
-			printf("Your new bank roll is $%.2f.\n", player.bank_roll)
+			printf("Your new bank roll is $%.2f.\n".colorize(:green), player.bank_roll)
 		elsif high_low.player_wins == false
 			player.bank_roll = player.bank_roll - high_low.wager
-			printf("Your new bank roll is $%.2f.\n", player.bank_roll)
+			printf("Your new bank roll is $%.2f.\n".colorize(:red), player.bank_roll)
 		end
     	exit(0) if player.bank_roll == 0
     end
@@ -106,10 +107,10 @@ class Cashier
   	def self.payout_slots(slots, player)
 		if slots.player_wins == true
 			player.bank_roll = player.bank_roll + slots.wager
-			printf("Your new bank roll is $%.2f.\n", player.bank_roll)
+			printf("Your new bank roll is $%.2f.\n".colorize(:green), player.bank_roll)
     	elsif slots.player_wins == false
     		player.bank_roll = player.bank_roll - slots.wager 
-    		printf("Your new bank roll is $%.2f.\n", player.bank_roll)
+    		printf("Your new bank roll is $%.2f.\n".colorize(:red), player.bank_roll)
 		end
     	exit(0) if player.bank_roll == 0
     end
@@ -119,4 +120,7 @@ Casino.new.hit_the_tables
 
 
 # TO DO list
+# colorize money
+# if player wins, display bank roll in green
+# if player loses, display bank roll in red
 # dynamic wager (choose how much to bet, give option for all in)
