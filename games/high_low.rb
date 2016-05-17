@@ -29,10 +29,5 @@ class HighLow
 			puts "push"	
 			# restarts game
 		end
-		#call the payout
 	end 
-
-	# def payout
-
-
 end

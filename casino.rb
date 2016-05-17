@@ -1,4 +1,4 @@
-# require_relative 'mechanics/dice'
+ # require_relative 'mechanics/dice'
 Dir[File.dirname(__FILE__) + '/mechanics/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/games/*.rb'].each {|file| require file }
 require 'pry'
@@ -69,8 +69,6 @@ class Casino
 		# hit_the_tables if user_input == 'y'
   #   end
 
-    	
-   
 end
 
 
@@ -87,9 +85,7 @@ class Player
 		puts "Welcome to the casino. What's your name?"
 		@name = gets.strip
 		printf("Good luck %s, you have $%.2f to play with.\n", @name, @bank_roll)
-
 	end
-
 end
 
 
@@ -99,8 +95,8 @@ class Cashier
 			player.bank_roll = player.bank_roll + high_low.wager
 			printf("Your new bank roll is $%.2f.\n", player.bank_roll)
 		elsif high_low.player_wins == false
-			  player.bank_roll = player.bank_roll - high_low.wager
-			  printf("Your new bank roll is $%.2f.\n", player.bank_roll)
+			player.bank_roll = player.bank_roll - high_low.wager
+			printf("Your new bank roll is $%.2f.\n", player.bank_roll)
 		end
     	exit(0) if player.bank_roll == 0
     end
@@ -110,8 +106,8 @@ class Cashier
 			player.bank_roll = player.bank_roll + slots.wager
 			printf("Your new bank roll is $%.2f.\n", player.bank_roll)
     	elsif slots.player_wins == false
-    		  player.bank_roll = player.bank_roll - slots.wager 
-    		  printf("Your new bank roll is $%.2f.\n", player.bank_roll)
+    		player.bank_roll = player.bank_roll - slots.wager 
+    		printf("Your new bank roll is $%.2f.\n", player.bank_roll)
 		end
     	exit(0) if player.bank_roll == 0
     end
