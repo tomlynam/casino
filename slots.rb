@@ -25,7 +25,7 @@ class Slots
 			# maybe also add a bonus here in addition to doubling the wager
 		elsif numbers.uniq.count == 2
 			puts "Winnner winner!"
-			# @player_wins = false
+			# @player_wins = true
 		else 
 			puts "Sorry, not a winner."
 			# @player_wins = false
