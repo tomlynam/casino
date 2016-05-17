@@ -19,11 +19,11 @@ class Casino
 		case gets.strip
 	    	when '1'
 	    		@high_low = HighLow.new
-	    		@high_low.deal_cards
+	    		@high_low.set_wager(@player)
 	    		Cashier.payout_high_low(@high_low, @player)
 	    	when '2'
 	    		@slots = Slots.new
-	    		@slots.pull
+	    		@slots.set_wager(@player)
 	    		Cashier.payout_slots(@slots, @player)
 	    	else
 	    		puts "Goodbye!"
@@ -118,9 +118,3 @@ end
 
 Casino.new.hit_the_tables
 
-
-# TO DO list
-# colorize money
-# if player wins, display bank roll in green
-# if player loses, display bank roll in red
-# dynamic wager (choose how much to bet, give option for all in)

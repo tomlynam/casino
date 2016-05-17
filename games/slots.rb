@@ -3,7 +3,18 @@ class Slots
 	attr_accessor :wager, :player_wins
 
 	def initialize
-		@wager = 10
+		@wager = wager
+	end
+
+	def set_wager(player)
+		# binding.pry
+		puts "How much would you like to bet?"
+		@wager = gets.strip.to_i
+		if @wager > player.bank_roll
+			puts "Sorry, you cannot bet more than you have."
+			set_wager(player)
+		else pull
+		end
 	end
 
  	def pull
