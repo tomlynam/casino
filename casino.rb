@@ -18,7 +18,7 @@ class Casino
 	attr_accessor :player
 
 	def initialize
-		@player = Player.new
+		@player = Player.new # TODO '.new'doesn't seem necessary?
 	end
 
 	def pick_game
