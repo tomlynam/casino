@@ -2,17 +2,6 @@
 Dir[File.dirname(__FILE__) + '/mechanics/*.rb'].each {|file| require file }
 require 'pry'
 
-# Start game player has a name and an initial bank roll
-# Class, instance of a player, pass through name and bank roll (both instance variables)
-
-# Player can go to different games via menu
-# Method, display menu, take input and proceed to game
-
-# High / Low
-# Class
-
-# Player places bet and wins / loses (hint: rand)
-# Player's bankroll goes up and down with wins and losses
 
 class Casino
 	attr_accessor :player
@@ -102,8 +91,6 @@ class Player
 
 end
 
-# Player.new.intro
-
 
 class HighLow
 	attr_accessor :wager, :player_wins
@@ -179,6 +166,5 @@ class Slots
 		
 	end  
 end
-
 
 Casino.new.hit_the_tables
