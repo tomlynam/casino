@@ -23,6 +23,10 @@ class Casino
 	    	when '2'
 	    		@slots = Slots.new
 	    		@slots.pull
+	    		# help us reset the instance of our game
+	    		# because high_low is already instantiated
+	    		# so it always hits the 'if' in payout
+	    		@high_low = nil
 	    	else
 	    		puts "Goodbye!"
 	    		exit
@@ -30,17 +34,16 @@ class Casino
     end
 
     def payout
-    	# binding.pry
     	if @high_low
-    		if  @high_low.player_wins == true 
+    		if @high_low.player_wins == true 
     			@player.bank_roll = @player.bank_roll + @high_low.wager 
     			puts "Your new bank roll is #{@player.bank_roll}."
     		elsif @high_low.player_wins == false
     			  @player.bank_roll = @player.bank_roll - @high_low.wager
     			  puts "Your new bank roll is #{@player.bank_roll}."	
     		end
-    	elsif @slots
-    		if  @slots.player_wins == true
+    	else @slots
+    		if @slots.player_wins == true
     			@player.bank_roll = @player.bank_roll + @slots.wager 
     			puts "Your new bank roll is #{@player.bank_roll}."
 	    	elsif @slots.player_wins == false
