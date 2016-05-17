@@ -24,14 +24,15 @@ class Casino
 	def pick_game
 		puts "What game would you like to play?"
 		puts "1: High/Low"
-		# 2: Slots
+		puts "2: Slots"
 		case gets.strip
 	    	when '1'
 	    		# plays high low
 	    		@high_low = HighLow.new
 	    		@high_low.deal_cards
-	    	# when '2'
-	    	# 	# new instance of slots
+	    	when '2'
+	    		@slots = Slots.new
+	    		@slots.pull
 	    	else
 	    		puts "Goodbye!"
 	    		exit
@@ -40,12 +41,22 @@ class Casino
 
     def payout
     	# binding.pry
-    	if @high_low.player_wins == true
-    		@player.bank_roll = @player.bank_roll + @high_low.wager
-    		puts "Your new bank roll is #{@player.bank_roll}."
-    	else 
-    		@player.bank_roll = @player.bank_roll - @high_low.wager
-    		puts "Your new bank roll is #{@player.bank_roll}."
+    	if @high_low
+    		if  @high_low.player_wins == true 
+    			@player.bank_roll = @player.bank_roll + @high_low.wager 
+    			puts "Your new bank roll is #{@player.bank_roll}."
+    		elsif @high_low.player_wins == false
+    			  @player.bank_roll = @player.bank_roll - @high_low.wager
+    			  puts "Your new bank roll is #{@player.bank_roll}."	
+    		end
+    	elsif @slots
+    		if  @slots.player_wins == true
+    			@player.bank_roll = @player.bank_roll + @slots.wager 
+    			puts "Your new bank roll is #{@player.bank_roll}."
+	    	elsif @slots.player_wins == false
+	    		  @player.bank_roll = @player.bank_roll - @slots.wager 
+	    		  puts "Your new bank roll is #{@player.bank_roll}."
+			end
     	end
     	#bank_roll == 0 ? exit : 
     	if @player.bank_roll == 0 
@@ -135,5 +146,39 @@ class HighLow
 		end
 	end  
 end
+
+
+class Slots
+	attr_accessor :wager, :player_wins
+
+	def initialize
+		@wager = 10
+	end
+
+ 	def pull
+  	
+		# generate random number between 0 and 9
+		wheel1 = rand(0..9)
+		wheel2 = rand(0..9)
+		wheel3 = rand(0..9)
+		numbers = [wheel1, wheel2, wheel3]
+		puts numbers.join(' ')
+
+		# binding.pry
+		if numbers.uniq.count == 1
+			puts "Jackpot!"
+			@player_wins = true
+			# maybe also add a bonus here in addition to doubling the wager
+		elsif numbers.uniq.count == 2
+			puts "Winner winner!"
+			@player_wins = true
+		else 
+			puts "Sorry, not a winner."
+			@player_wins = false
+		end
+		
+	end  
+end
+
 
 Casino.new.hit_the_tables
